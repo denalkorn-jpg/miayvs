@@ -1,197 +1,247 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для Дарьюшки 🍬</title>
-    <style>
-        /* Нежно-розовый фон */
-        body {
-            background-color: #ffe4e1; /* Светло-розовый (MistyRose) */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            position: relative;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Благодарность</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        /* Карточка по центру */
-        .card {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px 30px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-            text-align: center;
-            max-width: 400px;
-            width: 85%;
-            z-index: 10;
-            position: relative;
-            border: 2px dashed #ffb6c1;
-        }
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+    }
 
-        h1 {
-            color: #d81b60; /* Ярко-розовый */
-            font-size: 26px;
-            margin-bottom: 25px;
-            line-height: 1.4;
-        }
+    /* Флаг Боснии и Герцеговины как фон */
+    .flag-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: #002F6C; /* синий фон флага */
+    }
 
-        /* Контейнер для фото (если добавите) */
-        .photo-container {
-            width: 100%;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
-            display: none; /* По умолчанию скрыто. Если добавите фото, поменяйте на block */
-        }
+    /* Жёлтый треугольник флага БиГ */
+    .flag-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #FECB00;
+        clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
 
-        .photo-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+    /* Белые звёзды вдоль гипотенузы треугольника */
+    .stars {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+    }
 
-        /* Розовая кнопка */
-        button {
-            background-color: #ff69b4; /* HotPink */
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
-            font-family: inherit;
-        }
+    .star {
+        position: absolute;
+        color: #fff;
+        font-size: 22px;
+        line-height: 1;
+        transform: translate(-50%, -50%);
+    }
 
-        button:hover {
-            background-color: #ff1493; /* DeepPink */
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
-        }
+    /* Плавающие эмоджи-флаги */
+    .emoji-float {
+        position: fixed;
+        font-size: 32px;
+        opacity: 0.85;
+        animation: float 8s ease-in-out infinite;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
+    }
 
-        button:active {
-            transform: translateY(1px);
-        }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(-8deg); }
+        50% { transform: translateY(-25px) rotate(8deg); }
+    }
 
-        /* Скрытый ответ */
-        #answer-text {
-            display: none;
-            color: #d81b60;
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 25px;
-            line-height: 1.5;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    /* Основная карточка */
+    .card {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(6px);
+        border-radius: 24px;
+        padding: 48px 40px;
+        max-width: 640px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        border: 3px solid #FECB00;
+    }
 
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            80% { transform: scale(1.1); }
-            100% { transform: scale(1); opacity: 1; }
-        }
+    .thank-text {
+        font-size: clamp(20px, 4vw, 30px);
+        font-weight: 700;
+        color: #002F6C;
+        line-height: 1.5;
+        margin-bottom: 32px;
+    }
 
-        /* Плавающие стикеры */
-        .sticker {
-            position: absolute;
-            z-index: 1;
-            animation: float 5s ease-in-out infinite;
-            user-select: none;
-        }
+    .thank-text .name {
+        color: #b8860b;
+        display: inline-block;
+    }
 
-        /* Позиции стикеров */
-        .s1 { top: 8%; left: 10%; animation-delay: 0s; font-size: 30px; }
-        .s2 { top: 15%; right: 12%; animation-delay: 1.2s; font-size: 35px; }
-        .s3 { bottom: 20%; left: 15%; animation-delay: 0.7s; font-size: 25px; }
-        .s4 { bottom: 12%; right: 15%; animation-delay: 2s; font-size: 32px; }
-        .s5 { top: 45%; left: 4%; animation-delay: 1.5s; font-size: 28px; }
-        .s6 { top: 55%; right: 5%; animation-delay: 0.3s; font-size: 26px; }
-        .s7 { top: 4%; left: 45%; animation-delay: 2.5s; font-size: 24px; }
-        .s8 { bottom: 4%; left: 48%; animation-delay: 1.8s; font-size: 30px; }
-        .s9 { top: 30%; right: 25%; animation-delay: 0.9s; font-size: 22px; }
-        .s10 { bottom: 35%; left: 30%; animation-delay: 2.2s; font-size: 27px; }
+    button {
+        font-size: 20px;
+        font-weight: 700;
+        padding: 16px 42px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(135deg, #002F6C, #00509e);
+        box-shadow: 0 8px 20px rgba(0, 47, 108, 0.45);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.3s;
+    }
 
-        /* Анимация парения */
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(15deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-    </style>
+    button:hover {
+        transform: translateY(-3px) scale(1.04);
+        box-shadow: 0 12px 26px rgba(0, 47, 108, 0.6);
+    }
+
+    button:active {
+        transform: translateY(1px) scale(0.98);
+    }
+
+    button:disabled {
+        opacity: 0.55;
+        cursor: default;
+        transform: none;
+        box-shadow: 0 8px 20px rgba(0, 47, 108, 0.25);
+    }
+
+    /* Блок результата */
+    .result {
+        display: none;
+        margin-top: 8px;
+        animation: pop 0.5s ease;
+    }
+
+    .result.show {
+        display: block;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0.6); opacity: 0; }
+        70% { transform: scale(1.08); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .result-text {
+        font-size: clamp(22px, 4.5vw, 32px);
+        font-weight: 800;
+        color: #1a7f37;
+        margin-bottom: 18px;
+    }
+
+    .checks {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        font-size: 40px;
+        flex-wrap: wrap;
+    }
+
+    .checks span {
+        color: #1a7f37;
+        animation: checkIn 0.45s ease backwards;
+        text-shadow: 0 4px 10px rgba(26, 127, 55, 0.4);
+    }
+
+    .checks span:nth-child(1) { animation-delay: 0.05s; }
+    .checks span:nth-child(2) { animation-delay: 0.2s; }
+    .checks span:nth-child(3) { animation-delay: 0.35s; }
+    .checks span:nth-child(4) { animation-delay: 0.5s; }
+    .checks span:nth-child(5) { animation-delay: 0.65s; }
+
+    @keyframes checkIn {
+        0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+        100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+</style>
 </head>
 <body>
 
-    <!-- Фоновые стикеры: конфетки и котики -->
-    <div class="sticker s1">🍬</div>
-    <div class="sticker s2">🐱</div>
-    <div class="sticker s3">🍭</div>
-    <div class="sticker s4">😺</div>
-    <div class="sticker s5">🍬</div>
-    <div class="sticker s6">🐈</div>
-    <div class="sticker s7">🍬</div>
-    <div class="sticker s8">😸</div>
-    <div class="sticker s9">🍭</div>
-    <div class="sticker s10">🐾</div>
+    <!-- Фон-флаг -->
+    <div class="flag-bg"></div>
+    <div class="stars" id="stars"></div>
 
-    <!-- Основная карточка -->
+    <!-- Плавающие эмоджи-флаги -->
+    <div class="emoji-float" style="top: 8%;  left: 6%;  animation-delay: 0s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 15%; right: 9%; animation-delay: 1.2s;">🇧🇦</div>
+    <div class="emoji-float" style="bottom: 12%; left: 12%; animation-delay: 2.4s;">🇧🇦</div>
+    <div class="emoji-float" style="bottom: 20%; right: 8%; animation-delay: 0.6s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 45%; left: 3%;  animation-delay: 3s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 55%; right: 4%; animation-delay: 1.8s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 80%; left: 45%; animation-delay: 2s; font-size: 26px;">🇧🇦</div>
+    <div class="emoji-float" style="top: 5%;  left: 48%; animation-delay: 3.6s; font-size: 26px;">🇧🇦</div>
+
+    <!-- Карточка -->
     <div class="card">
-        <h1>Дарьюшка, привет! Скучала? 😽</h1>
-        
-        <!-- Блок для фото (если захотите добавить, уберите display: none; в CSS выше и положите фото в папку) -->
-        <div class="photo-container">
-            <!-- <img src="photo.jpg" alt="Наше фото"> -->
-        </div>
+        <p class="thank-text">
+            Спасибо вам за помощь с программой,
+            дорогой <span class="name">Никита Сергеевич</span>
+        </p>
 
-        <button id="btn" onclick="showAnswer()">Не скучай, мяу 🐾</button>
-        
-        <div id="answer-text">Мяу! Я тоже очень скучал(а)! ❤️🍬</div>
+        <button id="acceptBtn">Принять благодарность</button>
+
+        <div class="result" id="result">
+            <div class="result-text">Я отблагодарён</div>
+            <div class="checks">
+                <span>✔</span><span>✔</span><span>✔</span><span>✔</span><span>✔</span>
+            </div>
+        </div>
     </div>
 
-    <script>
-        function showAnswer() {
-            // Скрываем кнопку
-            var btn = document.getElementById('btn');
-            btn.style.display = 'none';
-            
-            // Показываем текст
-            var text = document.getElementById('answer-text');
-            text.style.display = 'block';
-
-            // Выпускаем немного конфетти из конфет и лапок
-            createConfetti();
+<script>
+    // Генерация звёзд вдоль диагонали флага
+    (function createStars() {
+        const container = document.getElementById('stars');
+        const count = 14;
+        for (let i = 0; i < count; i++) {
+            const t = i / (count - 1);          // 0 → 1 вдоль гипотенузы
+            const x = 100 - t * 100;            // справа налево
+            const y = t * 100;                  // сверху вниз
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.textContent = '★';
+            star.style.left = x + '%';
+            star.style.top = y + '%';
+            container.appendChild(star);
         }
+    })();
 
-        function createConfetti() {
-            const emojis = ['🍬', '🍭', '🐾', '❤️', '😻'];
-            for (let i = 0; i < 20; i++) {
-                let el = document.createElement('div');
-                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                el.style.position = 'absolute';
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.top = '100vh';
-                el.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                el.style.transition = 'transform 2.5s ease-out, opacity 2.5s';
-                el.style.zIndex = 100;
-                document.body.appendChild(el);
+    // Обработка кнопки
+    const btn = document.getElementById('acceptBtn');
+    const result = document.getElementById('result');
 
-                // Анимация поднятия вверх
-                setTimeout(() => {
-                    el.style.transform = `translateY(-${window.innerHeight}px) rotate(${Math.random() * 360}deg)`;
-                    el.style.opacity = 0;
-                }, 50);
+    btn.addEventListener('click', () => {
+        btn.disabled = true;
+        btn.textContent = 'Благодарность принята';
+        result.classList.add('show');
+    });
+</script>
 
-                // Удаление элемента
-                setTimeout(() => {
-                    el.remove();
-                }, 2500);
-            }
-        }
-    </script>
 </body>
 </html>
