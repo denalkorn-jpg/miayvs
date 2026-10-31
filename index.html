@@ -48,7 +48,6 @@
             padding: 40px;
             box-sizing: border-box;
             margin: 40px 0;
-            /* Добавляем сетку для гибкого размещения */
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-areas: 
@@ -75,7 +74,7 @@
         .block-note1 { grid-area: note1; display: flex; align-items: center; justify-content: center; }
         .block-note2 { grid-area: note2; display: flex; align-items: center; justify-content: center; }
 
-        /* Обертка для фото (Полароид) */
+        /* Обертка для фото */
         .photo-wrapper {
             background: #fff;
             padding: 10px 10px 35px 10px; 
@@ -182,8 +181,11 @@
         .note-1 { transform: rotate(2deg); }
         .note-2 { transform: rotate(-2deg); }
 
-        /* Кнопка */
+        /* Кнопка - ИДЕАЛЬНО ПО ЦЕНТРУ */
         .btn-container {
+            display: flex;
+            justify-content: center; /* Центрирование */
+            width: 100%;
             z-index: 20;
             margin-bottom: 50px;
         }
@@ -214,12 +216,12 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
-        /* ЭКРАН ПОЗДРАВЛЕНИЯ (в стиле блокнота) */
+        /* ЭКРАН ПОЗДРАВЛЕНИЯ */
         .congrats-container {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #fdfbf7; /* Тот же цвет, что и у блокнота */
+            background-color: #fdfbf7; 
             background-image: 
                 linear-gradient(#e5e7eb 1px, transparent 1px),
                 linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
@@ -240,28 +242,31 @@
             opacity: 1;
         }
 
+        /* УМЕНЬШЕННЫЙ ЗАГОЛОВОК */
         .congrats-title {
             font-family: 'Caveat', cursive;
-            font-size: 120px;
-            color: #b71c1c; /* Красные чернила */
+            font-size: 80px; /* Было 120px */
+            color: #b71c1c; 
             margin: 0 0 20px 0;
             text-shadow: 2px 2px 5px rgba(183, 28, 28, 0.3);
         }
 
+        /* УМЕНЬШЕННОЕ ФОТО */
         .final-photo {
-            width: 380px; 
+            width: 280px; /* Было 380px */
             max-width: 80%;
-            border: 10px solid #fff;
+            border: 8px solid #fff;
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             transform: rotate(2deg);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
+        /* УМЕНЬШЕННЫЙ ТЕКСТ */
         .congrats-text {
             font-family: 'Caveat', cursive;
-            font-size: 46px;
-            color: #1a237e; /* Чернильно-синий */
-            max-width: 800px;
+            font-size: 36px; /* Было 46px */
+            color: #1a237e; 
+            max-width: 700px;
             line-height: 1.2;
         }
 
@@ -287,8 +292,8 @@
                     "note1"
                     "note2";
             }
-            .congrats-title { font-size: 70px; }
-            .congrats-text { font-size: 32px; }
+            .congrats-title { font-size: 60px; }
+            .congrats-text { font-size: 28px; }
         }
     </style>
 </head>
@@ -301,7 +306,6 @@
     <div class="notebook-container">
         <h1 class="title-note">Уважаемый Владимир Леонидович!</h1>
 
-        <!-- Фото с книгой -->
         <div class="col-book">
             <div class="photo-wrapper photo-book">
                 <img src="book.jpg" alt="Книга">
@@ -316,7 +320,6 @@
             </div>
         </div>
 
-        <!-- Фото с дедом -->
         <div class="col-ded">
             <div class="photo-wrapper photo-ded">
                 <img src="ded.jpg" alt="Дедушка">
@@ -331,14 +334,12 @@
             </div>
         </div>
 
-        <!-- Первая записка -->
         <div class="block-note1">
             <div class="sticky-note note-1">
                 Пусть вы всегда проходите "фейс-контроль" информантов как в Белорусской Ветке под Гомелью (яичницей и самогоном)!
             </div>
         </div>
 
-        <!-- Портрет с подписью -->
         <div class="block-portrait">
             <div class="photo-wrapper photo-portrait">
                 <img src="portrait.jpg" alt="Портрет">
@@ -348,7 +349,6 @@
             </div>
         </div>
 
-        <!-- Вторая записка -->
         <div class="block-note2">
             <div class="sticky-note note-2">
                 Пусть в экспедициях вам не угрожают, что вы будете на "мушке ружья" и не придется драться с ухажерами Виктории!
@@ -356,6 +356,7 @@
         </div>
     </div>
 
+    <!-- Кнопка -->
     <div class="btn-container">
         <button class="main-btn" id="showCongratsBtn">Получить поздравления</button>
     </div>
