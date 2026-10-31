@@ -29,14 +29,15 @@
         }
         .header img {
             max-height: 80px;
+            border-radius: 5px;
         }
 
         /* Основная зона с фотографиями */
         .collage-container {
             position: relative;
             width: 100%;
-            max-width: 1200px;
-            height: 800px; /* Фиксированная высота для позиционирования */
+            max-width: 1400px; 
+            height: 900px; 
             margin-top: 20px;
         }
 
@@ -49,7 +50,7 @@
         }
         
         .photo-wrapper:hover {
-            transform: scale(1.02) rotate(0deg) !important;
+            transform: scale(1.05) rotate(0deg) !important;
             z-index: 10;
         }
 
@@ -68,27 +69,34 @@
         }
 
         .photo-ded {
-            top: 150px;
+            top: 50px;
             right: 50px;
-            width: 450px;
-            transform: rotate(3deg);
+            width: 400px;
+            transform: rotate(4deg);
+        }
+
+        .photo-portrait {
+            top: 350px;
+            left: 350px;
+            width: 250px;
+            transform: rotate(-3deg);
         }
 
         /* Рукописные надписи */
         .handwritten-text {
             font-family: 'Caveat', cursive;
-            font-size: 32px;
+            font-size: 34px;
             color: #1a1a1a;
             position: absolute;
             z-index: 5;
             line-height: 1.1;
-            text-shadow: 1px 1px 0px #fff, -1px -1px 0px #fff, 1px -1px 0px #fff, -1px 1px 0px #fff; /* Для читаемости на фоне */
+            text-shadow: 2px 2px 0px #fff, -2px -2px 0px #fff, 2px -2px 0px #fff, -2px 2px 0px #fff; 
         }
 
         .text-ded {
-            top: 50px;
-            right: 350px;
-            transform: rotate(-10deg);
+            top: 30px;
+            right: 480px;
+            transform: rotate(-8deg);
             text-align: right;
             width: 300px;
         }
@@ -100,6 +108,14 @@
             width: 350px;
         }
 
+        .text-portrait {
+            top: 450px;
+            left: 630px;
+            transform: rotate(5deg);
+            width: 300px;
+            color: #8b0000; 
+        }
+
         /* SVG стрелочки */
         .arrow {
             position: absolute;
@@ -109,11 +125,10 @@
 
         .arrow path {
             fill: none;
-            stroke: #2c3e2e; /* Темно-зеленый, как на лого */
+            stroke: #2c3e2e; 
             stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
-            /* Анимация рисования стрелок */
             stroke-dasharray: 1000;
             stroke-dashoffset: 1000;
             animation: drawArrow 2s ease-in-out forwards;
@@ -124,7 +139,8 @@
         }
 
         .arrow-book { top: 200px; left: 380px; width: 150px; height: 100px; }
-        .arrow-ded { top: 180px; right: 500px; width: 150px; height: 100px; }
+        .arrow-ded { top: 180px; right: 480px; width: 150px; height: 100px; }
+        .arrow-portrait { top: 320px; left: 620px; width: 120px; height: 100px; }
 
         /* Кнопка */
         .btn-container {
@@ -133,7 +149,7 @@
         }
 
         .main-btn {
-            background-color: #8b0000; /* Темно-красный */
+            background-color: #8b0000; 
             color: white;
             border: none;
             padding: 15px 40px;
@@ -160,7 +176,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             z-index: 100;
             justify-content: center;
             align-items: center;
@@ -203,29 +219,19 @@
             opacity: 1;
         }
 
-        /* Хлопушки */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            z-index: 99;
-            pointer-events: none;
-        }
-
     </style>
 </head>
 <body>
 
     <div class="header">
-        <!-- Замените logo.png на путь к вашему логотипу -->
-        <img src="logo.png" alt="Логотип ИСл РАН">
+        <!-- Логотип в формате JPG -->
+        <img src="logo.jpg" alt="Логотип ИСл РАН">
     </div>
 
     <div class="collage-container">
-        <!-- Фото с книгой -->
+        <!-- 1. Фото с книгой (JPG) -->
         <div class="photo-wrapper photo-book">
-            <img src="book.png" alt="Книга">
+            <img src="book.jpg" alt="Книга">
         </div>
         
         <!-- Стрелочка к книге -->
@@ -238,9 +244,9 @@
             Желаем много-много монографий<br>(и времени на их создание)
         </div>
 
-        <!-- Фото с дедом -->
+        <!-- 2. Фото с дедом (JPG) -->
         <div class="photo-wrapper photo-ded">
-            <img src="ded.png" alt="Дедушка">
+            <img src="ded.jpg" alt="Дедушка">
         </div>
 
         <!-- Стрелочка к деду -->
@@ -252,6 +258,21 @@
         <div class="handwritten-text text-ded">
             Желаю больше замечательных информантов
         </div>
+
+        <!-- 3. Фото-портрет (JPG) -->
+        <div class="photo-wrapper photo-portrait">
+            <img src="portrait.jpg" alt="Портрет">
+        </div>
+        
+        <!-- Стрелочка к портрету -->
+        <svg class="arrow arrow-portrait" viewBox="0 0 100 100">
+            <path d="M 10 10 Q 60 10 80 80 M 60 70 L 80 80 L 90 60" />
+        </svg>
+
+        <!-- Текст для портрета -->
+        <div class="handwritten-text text-portrait">
+            Успехов в полевых исследованиях и новых открытий!
+        </div>
     </div>
 
     <div class="btn-container">
@@ -261,6 +282,7 @@
     <!-- Оверлей с поздравлением и фото с тортом -->
     <div class="congrats-container" id="congratsScreen">
         <h1 class="congrats-title">Поздравляем!</h1>
+        <!-- Фото с тортом в формате PNG -->
         <img src="cake.png" alt="Торт" class="final-photo">
     </div>
 
@@ -276,7 +298,7 @@
             // Левая сторона
             confetti({
                 particleCount: 150,
-                spread: 70,
+                spread: 80,
                 origin: { x: 0, y: 0.6 },
                 angle: 60,
                 colors: ['#ffd700', '#8b0000', '#ffffff', '#2c3e2e']
@@ -284,7 +306,7 @@
             // Правая сторона
             confetti({
                 particleCount: 150,
-                spread: 70,
+                spread: 80,
                 origin: { x: 1, y: 0.6 },
                 angle: 120,
                 colors: ['#ffd700', '#8b0000', '#ffffff', '#2c3e2e']
@@ -292,20 +314,17 @@
         }
 
         btn.addEventListener('click', () => {
-            // Показываем экран поздравления
             congratsScreen.classList.add('active');
-            
-            // Запускаем хлопушки
             fireConfetti();
             
-            // Добавляем дополнительные залпы для красоты
+            // Дополнительный залп для красоты
             setTimeout(() => {
                 confetti({
                     particleCount: 100,
-                    spread: 100,
-                    origin: { y: 0.5 }
+                    spread: 120,
+                    origin: { y: 0.4 }
                 });
-            }, 500);
+            }, 600);
         });
     </script>
 </body>
