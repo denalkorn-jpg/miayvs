@@ -9,7 +9,6 @@
         body {
             margin: 0;
             padding: 0;
-            /* Приятный теплый кофейно-шоколадный фон */
             background: linear-gradient(135deg, #4e342e 0%, #3e2723 100%);
             font-family: 'Neucha', cursive;
             overflow-x: hidden;
@@ -19,7 +18,6 @@
             align-items: center;
         }
 
-        /* БЕЛАЯ ШАПКА ДЛЯ ЛОГОТИПА */
         .header {
             width: 100%;
             background-color: #ffffff; 
@@ -50,30 +48,32 @@
             padding: 40px;
             box-sizing: border-box;
             margin: 40px 0;
+            /* Добавляем сетку для гибкого размещения */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 
+                "title title"
+                "book ded"
+                "note1 portrait"
+                "note2 note2";
+            gap: 30px;
         }
 
         .title-note {
+            grid-area: title;
             text-align: center;
             font-family: 'Caveat', cursive;
             font-size: 55px;
             color: #1a237e; 
             margin-top: 0;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
-        /* СЕТКА ДЛЯ ВЕРХНИХ ФОТО */
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .col-book { grid-area: book; display: flex; flex-direction: column; align-items: center; }
+        .col-ded { grid-area: ded; display: flex; flex-direction: column; align-items: center; }
+        .block-portrait { grid-area: portrait; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .block-note1 { grid-area: note1; display: flex; align-items: center; justify-content: center; }
+        .block-note2 { grid-area: note2; display: flex; align-items: center; justify-content: center; }
 
         /* Обертка для фото (Полароид) */
         .photo-wrapper {
@@ -87,7 +87,6 @@
             margin-bottom: 20px;
         }
 
-        /* Скотч на фото */
         .photo-wrapper::before {
             content: '';
             position: absolute;
@@ -109,7 +108,7 @@
 
         .photo-book { transform: rotate(-3deg); }
         .photo-ded { transform: rotate(3deg); }
-        .photo-portrait { transform: rotate(-2deg); margin-bottom: 0; }
+        .photo-portrait { transform: rotate(-2deg); margin-bottom: 0; max-width: 220px; }
 
         /* Стрелки */
         .arrow-container {
@@ -120,7 +119,7 @@
         }
 
         .arrow-svg {
-            width: 100px;
+            width: 80px;
             height: 100%;
             overflow: visible;
         }
@@ -132,7 +131,6 @@
             stroke-linejoin: round;
         }
 
-        /* Тексты */
         .handwritten-text {
             font-family: 'Caveat', cursive;
             font-size: 34px;
@@ -143,19 +141,10 @@
 
         .text-book { color: #1b5e20; }
         .text-ded { color: #b71c1c; }
+        .text-portrait { color: #4a148c; font-size: 28px; margin-top: 10px; text-align: center; }
 
         .arrow-book path { stroke: #1b5e20; }
         .arrow-ded path { stroke: #b71c1c; }
-
-        /* НИЖНЯЯ СЕКЦИЯ (Стикеры и Портрет) */
-        .bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr 260px; /* Две колонки под стикеры и колонка под портрет справа */
-            gap: 30px;
-            align-items: end; 
-            border-top: 2px dashed #ccc;
-            padding-top: 40px;
-        }
 
         /* Стикеры */
         .sticky-note {
@@ -169,6 +158,8 @@
             position: relative;
             clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%);
             transition: transform 0.3s ease;
+            max-width: 450px;
+            width: 100%;
         }
         
         .sticky-note:hover {
@@ -188,22 +179,8 @@
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset -2px -2px 4px rgba(0,0,0,0.3);
         }
 
-        .note-1 { transform: rotate(1deg); }
-        .note-2 { transform: rotate(-1deg); }
-
-        /* Блок портрета справа */
-        .portrait-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .text-portrait {
-            color: #4a148c; /* Фиолетовые чернила */
-            font-size: 28px;
-            margin-top: 15px;
-            text-align: center;
-        }
+        .note-1 { transform: rotate(2deg); }
+        .note-2 { transform: rotate(-2deg); }
 
         /* Кнопка */
         .btn-container {
@@ -218,7 +195,7 @@
             padding: 16px 55px;
             font-size: 28px;
             font-family: 'Caveat', cursive;
-            border-radius: 50px; /* Овальная форма */
+            border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 -3px 0 rgba(0,0,0,0.2);
             transition: all 0.3s ease;
@@ -229,7 +206,7 @@
         .main-btn:hover {
             background: linear-gradient(180deg, #e53935 0%, #c62828 100%);
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255, 215, 0, 0.4); /* Золотое свечение */
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255, 215, 0, 0.4);
         }
         
         .main-btn:active {
@@ -237,12 +214,16 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
-        /* Экран поздравления */
+        /* ЭКРАН ПОЗДРАВЛЕНИЯ (в стиле блокнота) */
         .congrats-container {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(30, 20, 15, 0.96); /* Темный, но не черный */
+            background-color: #fdfbf7; /* Тот же цвет, что и у блокнота */
+            background-image: 
+                linear-gradient(#e5e7eb 1px, transparent 1px),
+                linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -261,28 +242,27 @@
 
         .congrats-title {
             font-family: 'Caveat', cursive;
-            font-size: 100px;
-            color: #ffd700;
+            font-size: 120px;
+            color: #b71c1c; /* Красные чернила */
             margin: 0 0 20px 0;
-            text-shadow: 4px 4px 15px rgba(0,0,0,0.9);
+            text-shadow: 2px 2px 5px rgba(183, 28, 28, 0.3);
         }
 
         .final-photo {
-            width: 400px; 
+            width: 380px; 
             max-width: 80%;
-            border: 8px solid #fff;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            border: 10px solid #fff;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             transform: rotate(2deg);
             margin-bottom: 30px;
         }
 
         .congrats-text {
             font-family: 'Caveat', cursive;
-            font-size: 42px;
-            color: #fdfbf7;
+            font-size: 46px;
+            color: #1a237e; /* Чернильно-синий */
             max-width: 800px;
             line-height: 1.2;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         /* Конфетти */
@@ -297,78 +277,83 @@
 
         /* Адаптивность */
         @media (max-width: 900px) {
-            .layout-grid { grid-template-columns: 1fr; gap: 20px; }
-            .bottom-section { grid-template-columns: 1fr; justify-items: center; gap: 40px; }
+            .notebook-container { 
+                grid-template-columns: 1fr; 
+                grid-template-areas: 
+                    "title"
+                    "book"
+                    "ded"
+                    "portrait"
+                    "note1"
+                    "note2";
+            }
             .congrats-title { font-size: 70px; }
-            .congrats-text { font-size: 28px; }
+            .congrats-text { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <!-- Если логотип logo.jpg, замените .png на .jpg -->
         <img src="logo.png" alt="Логотип ИСл РАН">
     </div>
 
     <div class="notebook-container">
         <h1 class="title-note">Уважаемый Владимир Леонидович!</h1>
 
-        <div class="layout-grid">
-            <!-- ЛЕВАЯ КОЛОНКА (Книга) -->
-            <div class="column">
-                <div class="photo-wrapper photo-book">
-                    <img src="book.jpg" alt="Книга">
-                </div>
-                <div class="arrow-container">
-                    <svg class="arrow-svg arrow-book" viewBox="0 0 100 60">
-                        <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
-                    </svg>
-                </div>
-                <div class="handwritten-text text-book">
-                    Желаем много-много монографий<br>(и времени на их создание)
-                </div>
+        <!-- Фото с книгой -->
+        <div class="col-book">
+            <div class="photo-wrapper photo-book">
+                <img src="book.jpg" alt="Книга">
             </div>
-
-            <!-- ПРАВАЯ КОЛОНКА (Дед) -->
-            <div class="column">
-                <div class="photo-wrapper photo-ded">
-                    <img src="ded.jpg" alt="Дедушка">
-                </div>
-                <div class="arrow-container">
-                    <svg class="arrow-svg arrow-ded" viewBox="0 0 100 60">
-                        <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
-                    </svg>
-                </div>
-                <div class="handwritten-text text-ded">
-                    Желаю больше замечательных информантов
-                </div>
+            <div class="arrow-container">
+                <svg class="arrow-svg arrow-book" viewBox="0 0 100 60">
+                    <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
+                </svg>
+            </div>
+            <div class="handwritten-text text-book">
+                Желаем много-много монографий<br>(и времени на их создание)
             </div>
         </div>
 
-        <!-- НИЖНЯЯ СЕКЦИЯ -->
-        <div class="bottom-section">
-            <!-- Стикер 1 -->
+        <!-- Фото с дедом -->
+        <div class="col-ded">
+            <div class="photo-wrapper photo-ded">
+                <img src="ded.jpg" alt="Дедушка">
+            </div>
+            <div class="arrow-container">
+                <svg class="arrow-svg arrow-ded" viewBox="0 0 100 60">
+                    <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
+                </svg>
+            </div>
+            <div class="handwritten-text text-ded">
+                Желаю больше замечательных информантов
+            </div>
+        </div>
+
+        <!-- Первая записка -->
+        <div class="block-note1">
             <div class="sticky-note note-1">
                 Пусть вы всегда проходите "фейс-контроль" информантов как в Белорусской Ветке под Гомелью (яичницей и самогоном)!
             </div>
+        </div>
 
-            <!-- Стикер 2 -->
-            <div class="sticky-note note-2">
-                Пусть в экспедициях вам не угрожают, что вы будете на "мушке ружья" и не придется драться с ухажерами Виктории!
+        <!-- Портрет с подписью -->
+        <div class="block-portrait">
+            <div class="photo-wrapper photo-portrait">
+                <img src="portrait.jpg" alt="Портрет">
             </div>
-
-            <!-- Портрет, перенесенный вправо, с новой подписью -->
-            <div class="portrait-block">
-                <div class="photo-wrapper photo-portrait">
-                    <img src="portrait.jpg" alt="Портрет">
-                </div>
-                <div class="handwritten-text text-portrait">
-                    Пусть ваша улыбка радует<br>ваших близких сквозь года
-                </div>
+            <div class="handwritten-text text-portrait">
+                Пусть ваша улыбка радует<br>ваших близких сквозь года
             </div>
         </div>
 
+        <!-- Вторая записка -->
+        <div class="block-note2">
+            <div class="sticky-note note-2">
+                Пусть в экспедициях вам не угрожают, что вы будете на "мушке ружья" и не придется драться с ухажерами Виктории!
+            </div>
+        </div>
     </div>
 
     <div class="btn-container">
