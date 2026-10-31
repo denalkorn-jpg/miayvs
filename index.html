@@ -302,24 +302,21 @@
             line-height: 1.2;
         }
 
-        /* СТИЛИ ДЛЯ САЛЮТА (CSS-анимация) */
-        .salute-particle {
+        /* СТИЛИ ДЛЯ ОРНАМЕНТА */
+        .ornament-particle {
             position: fixed;
-            width: 30px;
-            height: 30px;
-            z-index: 9999; /* Поверх всего */
+            z-index: 9999;
             pointer-events: none;
-            /* Начальное состояние */
-            transform: translate(0, 0) scale(0);
+            transform: translate(0, 0) scale(0) rotate(0deg);
             opacity: 0;
-            /* Плавный переход для всех свойств */
-            transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 2s ease-out;
+            transition: transform 3s cubic-bezier(0.2, 0.8, 0.4, 1), opacity 2s ease-out;
         }
 
-        .salute-particle svg {
+        .ornament-particle svg {
             width: 100%;
             height: 100%;
             display: block;
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8)); /* Легкое свечение */
         }
 
         @media (max-width: 900px) {
@@ -344,11 +341,20 @@
 </head>
 <body>
 
-    <!-- Скрытый шаблон SVG для частицы -->
+    <!-- Скрытый шаблон SVG для ФОЛЬКЛОРНОГО ОРНАМЕНТА (Ромб с точками) -->
     <div id="svg-template" style="display: none;">
-        <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 25 5 L 10 45 M 25 5 L 40 45 M 10 25 L 40 25" 
-                  stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <!-- Внешний ромб -->
+            <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+            <!-- Внутренний ромб -->
+            <polygon points="50,25 75,50 50,75 25,50" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+            <!-- Точки в центре (символ засеянного поля) -->
+            <circle cx="50" cy="50" r="5" fill="currentColor"/>
+            <!-- Маленькие точки по бокам -->
+            <circle cx="50" cy="15" r="3" fill="currentColor"/>
+            <circle cx="50" cy="85" r="3" fill="currentColor"/>
+            <circle cx="15" cy="50" r="3" fill="currentColor"/>
+            <circle cx="85" cy="50" r="3" fill="currentColor"/>
         </svg>
     </div>
 
@@ -435,65 +441,63 @@
             const congratsScreen = document.getElementById('congratsScreen');
             const svgTemplate = document.getElementById('svg-template').innerHTML;
 
-            // Функция создания одной частицы
-            function createParticle() {
+            // Функция создания одного орнамента
+            function createOrnament() {
                 const particle = document.createElement('div');
-                particle.className = 'salute-particle';
+                particle.className = 'ornament-particle';
                 particle.innerHTML = svgTemplate;
                 
-                // Цвета
-                const colors = ['#ffd700', '#d32f2f', '#1a237e', '#ffffff', '#e53935'];
+                // Традиционные цвета вышивки: красный, черный, золотой, белый
+                const colors = ['#d32f2f', '#b71c1c', '#ffd700', '#1a237e', '#ffffff'];
                 particle.style.color = colors[Math.floor(Math.random() * colors.length)];
                 
-                // Случайный размер
-                const size = Math.random() * 30 + 20;
+                // Случайный размер (от 20 до 45 px)
+                const size = Math.random() * 25 + 20;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 
                 // Стартовая позиция (низ экрана, левый или правый край)
                 const isLeft = Math.random() > 0.5;
                 const startX = isLeft ? -50 : window.innerWidth + 50;
-                const startY = window.innerHeight; 
+                const startY = window.innerHeight + 50; 
                 
                 particle.style.left = startX + 'px';
                 particle.style.top = startY + 'px';
                 
                 document.body.appendChild(particle);
 
-                // Вычисляем траекторию (разлет вверх и в стороны)
+                // Траектория: разлет вверх и в стороны
                 const angle = isLeft ? (Math.random() * 45 + 30) : (Math.random() * 45 + 105);
                 const rad = angle * Math.PI / 180;
-                const distance = Math.random() * 300 + 200;
+                const distance = Math.random() * 400 + 300;
                 
                 const tx = Math.cos(rad) * distance * (isLeft ? 1 : -1);
-                const ty = -Math.sin(rad) * distance; // Вверх
+                const ty = -Math.sin(rad) * distance; 
 
-                // Запускаем анимацию с небольшой задержкой, чтобы браузер применил начальные стили
                 setTimeout(() => {
+                    // Взлет
                     particle.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(1) rotate(' + (Math.random() * 360) + 'deg)';
                     particle.style.opacity = '1';
                     
-                    // Через 1.5 секунды начинаем падение
+                    // Падение
                     setTimeout(() => {
-                        particle.style.transform = 'translate(' + (tx * 1.5) + 'px, ' + (window.innerHeight + 100) + 'px) scale(0.5) rotate(' + (Math.random() * 720) + 'deg)';
+                        particle.style.transform = 'translate(' + (tx * 1.2) + 'px, ' + (window.innerHeight + 100) + 'px) scale(0.5) rotate(' + (Math.random() * 720) + 'deg)';
                         particle.style.opacity = '0';
-                    }, 1000);
+                    }, 1200);
 
                 }, 50);
 
-                // Удаляем элемент из DOM через 3 секунды
                 setTimeout(() => {
                     if(particle.parentNode) particle.parentNode.removeChild(particle);
-                }, 3000);
+                }, 4000);
             }
 
             btn.addEventListener('click', () => {
-                // Показываем экран
                 congratsScreen.classList.add('active');
                 
-                // Запускаем салют (100 частиц)
-                for(let i = 0; i < 100; i++) {
-                    setTimeout(createParticle, i * 30); // Каждые 30 мс
+                // Запускаем 90 орнаментов
+                for(let i = 0; i < 90; i++) {
+                    setTimeout(createOrnament, i * 25); 
                 }
             });
         };
