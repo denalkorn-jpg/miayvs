@@ -205,7 +205,7 @@
         .note-1 { transform: rotate(2deg); }
         .note-2 { transform: rotate(-2deg); }
 
-        /* КНОПКА С ДВУМЯ СТРОКАМИ */
+        /* КНОПКА */
         .btn-container {
             display: flex;
             justify-content: center; 
@@ -250,7 +250,7 @@
 
         .btn-sub-text {
             font-size: 18px;
-            color: #ffeb3b; /* Желтоватый, чтобы выделялось */
+            color: #ffeb3b;
             opacity: 0.9;
             letter-spacing: 0.5px;
         }
@@ -306,13 +306,16 @@
             line-height: 1.2;
         }
 
-        .confetti-piece {
+        /* Стили для летящих букв "и" глаголицы */
+        .glagolitic-particle {
             position: fixed;
-            width: 10px;
-            height: 10px;
             z-index: 999;
             pointer-events: none;
-            top: -20px;
+            font-size: 40px; /* Размер буквы */
+            font-weight: 700;
+            font-family: 'Times New Roman', serif; /* Глаголица часто отображается в шрифтах с поддержкой Юникода */
+            opacity: 1;
+            will-change: transform, opacity;
         }
 
         @media (max-width: 900px) {
@@ -358,7 +361,6 @@
                     <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
                 </svg>
             </div>
-            <!-- ИЗМЕНЕНО: Желаем -> Желаю -->
             <div class="handwritten-text text-book">
                 Желаю много-много монографий<br>(и времени на их создание)
             </div>
@@ -388,7 +390,6 @@
             <div class="photo-wrapper photo-portrait">
                 <img src="portrait.jpg" alt="Портрет">
             </div>
-            <!-- ИЗМЕНЕНО: Пусть ваша улыбка радует... (оставил как было, если надо "желаю", скажите) -->
             <div class="handwritten-text text-portrait">
                 Пусть ваша улыбка радует<br>ваших близких сквозь года
             </div>
@@ -401,7 +402,6 @@
         </div>
     </div>
 
-    <!-- Кнопка с подписью в скобочках -->
     <div class="btn-container">
         <button class="main-btn" id="showCongratsBtn">
             <span class="btn-main-text">Получить поздравления</span>
@@ -409,9 +409,7 @@
         </button>
     </div>
 
-    <!-- Экран поздравления -->
     <div class="congrats-container" id="congratsScreen">
-        <!-- ИЗМЕНЕНО: Поздравляем -> Поздравляю -->
         <h1 class="congrats-title">Поздравляю!</h1>
         <img src="cake.png" alt="Торт" class="final-photo">
         <div class="congrats-text">
@@ -423,44 +421,81 @@
         const btn = document.getElementById('showCongratsBtn');
         const congratsScreen = document.getElementById('congratsScreen');
 
-        function fireConfetti() {
-            const colors = ['#ffd700', '#d32f2f', '#ffffff', '#1a237e', '#1b5e20'];
-            
-            for (let i = 0; i < 100; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.classList.add('confetti-piece');
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    const isLeft = Math.random() > 0.5;
-                    confetti.style.left = isLeft ? '0' : '100vw';
-                    confetti.style.top = Math.random() * 40 + 50 + 'vh';
-                    
-                    document.body.appendChild(confetti);
+        // Символы глаголицы, обозначающие звук "И"
+        // Ⰹ (U+2C09) - Глаголица И (с точкой)
+        // Ⰻ (U+2C0B) - Глаголица И (без точки)
+        const glagoliticI = ['Ⰹ', 'Ⰻ'];
 
+        function fireGlagoliticSalute() {
+            // Цвета для букв
+            const colors = ['#d32f2f', '#1a237e', '#1b5e20', '#b71c1c', '#4a148c', '#ffd700'];
+            
+            // Создаем 120 символов
+            for (let i = 0; i < 120; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.classList.add('glagolitic-particle');
+                    
+                    // Берем случайную глаголическую "И"
+                    particle.innerText = glagoliticI[Math.floor(Math.random() * glagoliticI.length)];
+                    
+                    // Случайный цвет
+                    particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Немного случайный размер для естественности
+                    const randomSize = Math.random() * 20 + 20; // от 20 до 40px
+                    particle.style.fontSize = `${randomSize}px`;
+                    
+                    // Стартовая сторона: либо левая (0), либо правая (100vw)
+                    const isLeft = Math.random() > 0.5;
+                    const startX = isLeft ? 0 : window.innerWidth;
+                    
+                    // Позиция по Y: от середины экрана и ниже
+                    const startY = Math.random() * 40 + 50; // от 50% до 90% высоты экрана
+                    
+                    particle.style.left = `${startX}px`;
+                    particle.style.top = `${startY}vh`;
+                    
+                    document.body.appendChild(particle);
+
+                    // Физика полета (разлет в стороны и вверх, затем падение)
                     const angle = isLeft ? (Math.random() * 45 + 15) : (Math.random() * 45 + 120);
-                    const velocity = Math.random() * 300 + 200;
+                    const velocity = Math.random() * 400 + 300; // Скорость разлета
                     
                     const rad = angle * Math.PI / 180;
                     const tx = Math.cos(rad) * velocity;
-                    const ty = -Math.sin(rad) * velocity + 400; 
+                    const ty = -Math.sin(rad) * velocity + 500; // +500 для эффекта гравитации
 
-                    confetti.animate([
-                        { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-                        { transform: `translate(${tx}px, ${ty}px) rotate(${Math.random() * 1080}deg)`, opacity: 0 }
+                    // Анимация
+                    particle.animate([
+                        { 
+                            transform: `translate(0, 0) scale(0.5) rotate(0deg)`, 
+                            opacity: 0 
+                        },
+                        { 
+                            transform: `translate(${tx * 0.3}px, ${ty * 0.3}px) scale(1.2) rotate(${Math.random() * 180}deg)`, 
+                            opacity: 1,
+                            offset: 0.2 // Быстрое появление
+                        },
+                        { 
+                            transform: `translate(${tx}px, ${ty}px) scale(0.8) rotate(${Math.random() * 720 - 360}deg)`, 
+                            opacity: 0 
+                        }
                     ], {
-                        duration: Math.random() * 1500 + 1500,
-                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                        duration: Math.random() * 2000 + 2000, // Долгий полет (2-4 сек)
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                        fill: 'forwards'
                     });
 
-                    setTimeout(() => confetti.remove(), 3000);
-                }, i * 15);
+                    // Удаляем элемент после завершения
+                    setTimeout(() => particle.remove(), 4500);
+                }, i * 20); // Интервал появления
             }
         }
 
         btn.addEventListener('click', () => {
             congratsScreen.classList.add('active');
-            fireConfetti();
+            fireGlagoliticSalute(); // Запускаем салют из глаголицы
         });
     </script>
 </body>
