@@ -9,7 +9,6 @@
         body {
             margin: 0;
             padding: 0;
-            /* Осветленный шоколадно-кофейный фон */
             background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
             font-family: 'Neucha', cursive;
             overflow-x: hidden;
@@ -23,15 +22,15 @@
         .header {
             width: 100%;
             background-color: #ffffff; 
-            display: flex;             /* Центрирование */
-            justify-content: center;   /* логотипа */
-            align-items: center;       /* на мобильных */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 0;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             z-index: 10;
         }
         .header img {
-            max-height: 60px; /* Логотип уменьшен */
+            max-height: 60px;
             display: block;
             width: auto;
         }
@@ -62,7 +61,6 @@
             gap: 30px;
         }
 
-        /* Мелкая надпись про ИМЛИ / ИСл */
         .imli-note {
             position: absolute;
             top: 20px;
@@ -80,7 +78,7 @@
         }
         .imli-note .isll {
             display: block;
-            color: #d32f2f; /* Красные чернила */
+            color: #d32f2f;
             font-weight: 700;
             font-size: 26px;
             margin-bottom: -5px;
@@ -103,7 +101,6 @@
         .block-note1 { grid-area: note1; display: flex; align-items: center; justify-content: center; }
         .block-note2 { grid-area: note2; display: flex; align-items: center; justify-content: center; }
 
-        /* Обертка для фото */
         .photo-wrapper {
             background: #fff;
             padding: 10px 10px 35px 10px; 
@@ -138,7 +135,6 @@
         .photo-ded { transform: rotate(3deg); }
         .photo-portrait { transform: rotate(-2deg); margin-bottom: 0; max-width: 220px; }
 
-        /* Стрелки */
         .arrow-container {
             height: 50px;
             width: 100%;
@@ -174,7 +170,6 @@
         .arrow-book path { stroke: #1b5e20; }
         .arrow-ded path { stroke: #b71c1c; }
 
-        /* Стикеры */
         .sticky-note {
             background: #fff9c4; 
             padding: 25px;
@@ -210,7 +205,7 @@
         .note-1 { transform: rotate(2deg); }
         .note-2 { transform: rotate(-2deg); }
 
-        /* Кнопка */
+        /* КНОПКА С ДВУМЯ СТРОКАМИ */
         .btn-container {
             display: flex;
             justify-content: center; 
@@ -223,15 +218,16 @@
             background: linear-gradient(180deg, #d32f2f 0%, #b71c1c 100%);
             color: #fff;
             border: 2px solid #ffd700; 
-            padding: 16px 55px;
-            font-size: 28px;
+            padding: 12px 50px;
             font-family: 'Caveat', cursive;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 -3px 0 rgba(0,0,0,0.2);
             transition: all 0.3s ease;
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
         }
 
         .main-btn:hover {
@@ -243,6 +239,20 @@
         .main-btn:active {
             transform: translateY(1px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .btn-main-text {
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-bottom: 2px;
+        }
+
+        .btn-sub-text {
+            font-size: 18px;
+            color: #ffeb3b; /* Желтоватый, чтобы выделялось */
+            opacity: 0.9;
+            letter-spacing: 0.5px;
         }
 
         /* ЭКРАН ПОЗДРАВЛЕНИЯ */
@@ -296,7 +306,6 @@
             line-height: 1.2;
         }
 
-        /* Конфетти */
         .confetti-piece {
             position: fixed;
             width: 10px;
@@ -306,7 +315,6 @@
             top: -20px;
         }
 
-        /* Адаптивность */
         @media (max-width: 900px) {
             .notebook-container { 
                 grid-template-columns: 1fr; 
@@ -317,7 +325,7 @@
                     "portrait"
                     "note1"
                     "note2";
-                padding-top: 60px; /* Место под надпись ИМЛИ */
+                padding-top: 60px; 
             }
             .title-note { margin-top: 0; }
             .imli-note { top: 15px; left: 20px; font-size: 20px; }
@@ -334,7 +342,6 @@
     </div>
 
     <div class="notebook-container">
-        <!-- Мелкая записка про ИМЛИ -->
         <div class="imli-note">
             <span class="isll">ИСл</span>
             <span class="strikethrough">ИМЛИ</span> РАН
@@ -351,8 +358,9 @@
                     <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
                 </svg>
             </div>
+            <!-- ИЗМЕНЕНО: Желаем -> Желаю -->
             <div class="handwritten-text text-book">
-                Желаем много-много монографий<br>(и времени на их создание)
+                Желаю много-много монографий<br>(и времени на их создание)
             </div>
         </div>
 
@@ -380,6 +388,7 @@
             <div class="photo-wrapper photo-portrait">
                 <img src="portrait.jpg" alt="Портрет">
             </div>
+            <!-- ИЗМЕНЕНО: Пусть ваша улыбка радует... (оставил как было, если надо "желаю", скажите) -->
             <div class="handwritten-text text-portrait">
                 Пусть ваша улыбка радует<br>ваших близких сквозь года
             </div>
@@ -392,14 +401,18 @@
         </div>
     </div>
 
-    <!-- Кнопка -->
+    <!-- Кнопка с подписью в скобочках -->
     <div class="btn-container">
-        <button class="main-btn" id="showCongratsBtn">Получить поздравления</button>
+        <button class="main-btn" id="showCongratsBtn">
+            <span class="btn-main-text">Получить поздравления</span>
+            <span class="btn-sub-text">(нажмите скорее)</span>
+        </button>
     </div>
 
     <!-- Экран поздравления -->
     <div class="congrats-container" id="congratsScreen">
-        <h1 class="congrats-title">Поздравляем!</h1>
+        <!-- ИЗМЕНЕНО: Поздравляем -> Поздравляю -->
+        <h1 class="congrats-title">Поздравляю!</h1>
         <img src="cake.png" alt="Торт" class="final-photo">
         <div class="congrats-text">
             Пусть работа в институте вас радует,<br>а мы для вас будем лучшими коллегами.<br>Почаще улыбайтесь!
