@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Поздравление директору ИСл РАН</title>
-    <!-- Подключаем шрифт для рукописных надписей -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #f4f1ea; /* Слегка кремовый фон */
+            background-color: #fcf9f2; /* Светлый кремовый фон */
             font-family: 'Times New Roman', serif;
             overflow-x: hidden;
             display: flex;
@@ -24,33 +23,36 @@
             text-align: center;
             padding: 20px;
             width: 100%;
-            background: #2c3e2e; /* Цвет в тон обложке книги */
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: #4a151b; /* Благородный бордовый */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border-bottom: 3px solid #d4af37; /* Золотая полоса */
         }
         .header img {
             max-height: 80px;
             border-radius: 5px;
+            background: white; /* На случай, если лого прозрачное */
+            padding: 5px;
         }
 
         /* Основная зона с фотографиями */
         .collage-container {
             position: relative;
             width: 100%;
-            max-width: 1400px; 
-            height: 900px; 
-            margin-top: 20px;
+            max-width: 1200px; 
+            height: 850px; 
+            margin-top: 30px;
         }
 
         .photo-wrapper {
             position: absolute;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border: 5px solid #fff;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+            border: 6px solid #fff;
             background: #fff;
             transition: transform 0.3s ease;
         }
         
         .photo-wrapper:hover {
-            transform: scale(1.05) rotate(0deg) !important;
+            transform: scale(1.03) rotate(0deg) !important;
             z-index: 10;
         }
 
@@ -62,31 +64,31 @@
 
         /* Позиционирование фото */
         .photo-book {
-            top: 50px;
+            top: 20px;
             left: 50px;
-            width: 300px;
-            transform: rotate(-5deg);
+            width: 320px;
+            transform: rotate(-4deg);
         }
 
         .photo-ded {
-            top: 50px;
+            top: 40px;
             right: 50px;
-            width: 400px;
-            transform: rotate(4deg);
+            width: 450px;
+            transform: rotate(3deg);
         }
 
         .photo-portrait {
-            top: 350px;
-            left: 350px;
-            width: 250px;
-            transform: rotate(-3deg);
+            top: 380px;
+            left: 400px;
+            width: 280px;
+            transform: rotate(-2deg);
         }
 
         /* Рукописные надписи */
         .handwritten-text {
             font-family: 'Caveat', cursive;
-            font-size: 34px;
-            color: #1a1a1a;
+            font-size: 36px;
+            color: #4a151b; /* Темно-бордовый текст */
             position: absolute;
             z-index: 5;
             line-height: 1.1;
@@ -94,39 +96,41 @@
         }
 
         .text-ded {
-            top: 30px;
-            right: 480px;
-            transform: rotate(-8deg);
+            top: 120px;
+            right: 520px;
+            transform: rotate(-6deg);
             text-align: right;
             width: 300px;
         }
 
         .text-book {
-            bottom: -80px;
+            top: 380px;
             left: 50px;
             transform: rotate(-3deg);
             width: 350px;
+            font-size: 32px;
         }
 
         .text-portrait {
-            top: 450px;
-            left: 630px;
-            transform: rotate(5deg);
-            width: 300px;
-            color: #8b0000; 
+            top: 500px;
+            left: 710px;
+            transform: rotate(4deg);
+            width: 350px;
+            color: #b8860b; /* Золотисто-коричневый */
         }
 
-        /* SVG стрелочки */
+        /* Рукописные стрелочки (SVG) */
         .arrow {
             position: absolute;
             z-index: 4;
             pointer-events: none;
+            overflow: visible;
         }
 
         .arrow path {
             fill: none;
-            stroke: #2c3e2e; 
-            stroke-width: 3;
+            stroke: #b8860b; /* Золотая стрелка */
+            stroke-width: 3.5;
             stroke-linecap: round;
             stroke-linejoin: round;
             stroke-dasharray: 1000;
@@ -138,9 +142,9 @@
             to { stroke-dashoffset: 0; }
         }
 
-        .arrow-book { top: 200px; left: 380px; width: 150px; height: 100px; }
-        .arrow-ded { top: 180px; right: 480px; width: 150px; height: 100px; }
-        .arrow-portrait { top: 320px; left: 620px; width: 120px; height: 100px; }
+        .arrow-ded { top: 200px; right: 500px; width: 180px; height: 120px; }
+        .arrow-book { top: 300px; left: 350px; width: 180px; height: 120px; }
+        .arrow-portrait { top: 400px; left: 680px; width: 150px; height: 120px; }
 
         /* Кнопка */
         .btn-container {
@@ -149,35 +153,37 @@
         }
 
         .main-btn {
-            background-color: #8b0000; 
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 24px;
+            background-color: #8b0000; /* Насыщенный красный */
+            color: #fff;
+            border: 3px solid #d4af37; /* Золотая окантовка */
+            padding: 18px 50px;
+            font-size: 26px;
             font-family: 'Times New Roman', serif;
-            border-radius: 30px;
+            border-radius: 40px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 6px 20px rgba(139,0,0,0.4);
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         .main-btn:hover {
             background-color: #a00000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139,0,0,0.6);
         }
         
         .main-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.95) translateY(0);
         }
 
-        /* Скрытый контент поздравления */
+        /* Оверлей с поздравлением */
         .congrats-container {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 100;
+            background: rgba(20, 5, 5, 0.95); /* Темный фон */
+            z-index: 1000;
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -192,23 +198,23 @@
 
         .congrats-title {
             font-family: 'Caveat', cursive;
-            font-size: 120px;
-            color: #ffd700;
+            font-size: 140px;
+            color: #ffd700; /* Золотой */
             margin: 0 0 30px 0;
-            text-shadow: 2px 2px 10px rgba(255,215,0,0.5);
-            transform: scale(0);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 3px 3px 15px rgba(255,215,0,0.6);
+            transform: scale(0) rotate(-10deg);
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .congrats-container.active .congrats-title {
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
         }
 
         .final-photo {
-            width: 600px;
+            width: 650px;
             max-width: 90%;
             border: 8px solid #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
             transform: translateY(50px);
             opacity: 0;
             transition: all 0.8s ease 0.3s;
@@ -219,112 +225,137 @@
             opacity: 1;
         }
 
+        /* Конфетти (создается через JS) */
+        .confetti-piece {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            z-index: 999;
+            pointer-events: none;
+            top: -20px;
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <!-- Логотип в формате JPG -->
-        <img src="logo.jpg" alt="Логотип ИСл РАН">
+        <!-- Если логотип в формате JPG, замените на logo.jpg -->
+        <img src="logo.png" alt="Логотип ИСл РАН">
     </div>
 
     <div class="collage-container">
-        <!-- 1. Фото с книгой (JPG) -->
+        <!-- 1. Фото с книгой -->
         <div class="photo-wrapper photo-book">
             <img src="book.jpg" alt="Книга">
         </div>
         
-        <!-- Стрелочка к книге -->
-        <svg class="arrow arrow-book" viewBox="0 0 150 100">
-            <path d="M 10 90 Q 50 10 140 40 M 120 20 L 140 40 L 110 60" />
-        </svg>
-
         <!-- Текст для книги -->
         <div class="handwritten-text text-book">
             Желаем много-много монографий<br>(и времени на их создание)
         </div>
+        
+        <!-- Стрелочка к книге -->
+        <svg class="arrow arrow-book" viewBox="0 0 200 120">
+            <path d="M 20 100 Q 80 30 180 60 M 150 40 L 180 60 L 150 80" />
+        </svg>
 
-        <!-- 2. Фото с дедом (JPG) -->
+        <!-- 2. Фото с дедом -->
         <div class="photo-wrapper photo-ded">
             <img src="ded.jpg" alt="Дедушка">
         </div>
-
-        <!-- Стрелочка к деду -->
-        <svg class="arrow arrow-ded" viewBox="0 0 150 100">
-            <path d="M 140 90 Q 100 10 10 40 M 30 20 L 10 40 L 40 60" />
-        </svg>
 
         <!-- Текст для деда -->
         <div class="handwritten-text text-ded">
             Желаю больше замечательных информантов
         </div>
 
-        <!-- 3. Фото-портрет (JPG) -->
+        <!-- Стрелочка к деду -->
+        <svg class="arrow arrow-ded" viewBox="0 0 200 120">
+            <path d="M 180 100 Q 120 30 20 60 M 50 40 L 20 60 L 50 80" />
+        </svg>
+
+        <!-- 3. Фото-портрет -->
         <div class="photo-wrapper photo-portrait">
             <img src="portrait.jpg" alt="Портрет">
         </div>
         
-        <!-- Стрелочка к портрету -->
-        <svg class="arrow arrow-portrait" viewBox="0 0 100 100">
-            <path d="M 10 10 Q 60 10 80 80 M 60 70 L 80 80 L 90 60" />
-        </svg>
-
         <!-- Текст для портрета -->
         <div class="handwritten-text text-portrait">
-            Успехов в полевых исследованиях и новых открытий!
+            Успехов в полевых исследованиях!
         </div>
+
+        <!-- Стрелочка к портрету -->
+        <svg class="arrow arrow-portrait" viewBox="0 0 150 120">
+            <path d="M 20 20 Q 70 30 120 100 M 100 90 L 120 100 L 130 80" />
+        </svg>
     </div>
 
     <div class="btn-container">
         <button class="main-btn" id="showCongratsBtn">Получить поздравления</button>
     </div>
 
-    <!-- Оверлей с поздравлением и фото с тортом -->
+    <!-- Оверлей с поздравлением -->
     <div class="congrats-container" id="congratsScreen">
         <h1 class="congrats-title">Поздравляем!</h1>
-        <!-- Фото с тортом в формате PNG -->
         <img src="cake.png" alt="Торт" class="final-photo">
     </div>
 
-    <!-- Подключаем библиотеку для хлопушек -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
     <script>
         const btn = document.getElementById('showCongratsBtn');
         const congratsScreen = document.getElementById('congratsScreen');
 
-        // Функция запуска хлопушек с двух сторон
-        function fireConfetti() {
-            // Левая сторона
-            confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { x: 0, y: 0.6 },
-                angle: 60,
-                colors: ['#ffd700', '#8b0000', '#ffffff', '#2c3e2e']
-            });
-            // Правая сторона
-            confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { x: 1, y: 0.6 },
-                angle: 120,
-                colors: ['#ffd700', '#8b0000', '#ffffff', '#2c3e2e']
-            });
+        // Встроенная функция для создания хлопушек (работает без внешних библиотек)
+        function fireConfettiFromSides() {
+            const colors = ['#ffd700', '#8b0000', '#ffffff', '#d4af37', '#fcf9f2'];
+            
+            // Создаем 80 конфетти
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti-piece');
+                    
+                    // Случайный цвет
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Определяем сторону (левая или правая)
+                    const isLeft = Math.random() > 0.5;
+                    
+                    // Позиция
+                    confetti.style.left = isLeft ? '0' : '100vw';
+                    confetti.style.top = Math.random() * 50 + 50 + 'vh'; // От середины до низа
+                    
+                    // Форма (круг или квадрат)
+                    if(Math.random() > 0.5) confetti.style.borderRadius = '50%';
+                    else confetti.style.width = '8px'; // Прямоугольники
+
+                    document.body.appendChild(confetti);
+
+                    // Физика полета
+                    const angle = isLeft ? (Math.random() * 45 + 15) : (Math.random() * 45 + 120); // Углы в градусах
+                    const velocity = Math.random() * 250 + 150; // Скорость
+                    
+                    const rad = angle * Math.PI / 180;
+                    const tx = Math.cos(rad) * velocity;
+                    const ty = -Math.sin(rad) * velocity + 300; // Притяжение вниз
+
+                    // Анимация
+                    confetti.animate([
+                        { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                        { transform: `translate(${tx}px, ${ty}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 1500 + 1500,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    });
+
+                    // Удаляем элемент после завершения
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 15); // Задержка между вылетами
+            }
         }
 
         btn.addEventListener('click', () => {
             congratsScreen.classList.add('active');
-            fireConfetti();
-            
-            // Дополнительный залп для красоты
-            setTimeout(() => {
-                confetti({
-                    particleCount: 100,
-                    spread: 120,
-                    origin: { y: 0.4 }
-                });
-            }, 600);
+            fireConfettiFromSides();
         });
     </script>
 </body>
