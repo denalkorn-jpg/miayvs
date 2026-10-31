@@ -9,82 +9,86 @@
         body {
             margin: 0;
             padding: 0;
-            /* Фон - текстура темного дерева */
-            background: repeating-linear-gradient(
-                90deg,
-                #2b1d14,
-                #2b1d14 50px,
-                #231710 50px,
-                #231710 100px
-            );
+            background: #2b1d14; /* Темное дерево */
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 49px, #231710 50px);
             font-family: 'Neucha', cursive;
             overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
 
-        /* Шапка с логотипом - прозрачная */
+        /* БЕЛАЯ ШАПКА ДЛЯ ЛОГОТИПА */
         .header {
             width: 100%;
+            background-color: #ffffff; 
             text-align: center;
-            padding: 25px 0;
-            background: transparent; /* Убран темный фон */
-            margin-bottom: 10px;
+            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
             z-index: 10;
         }
         .header img {
-            max-height: 90px; /* Увеличен размер */
-            /* Тень, чтобы белый логотип было видно на дереве */
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8)); 
+            max-height: 80px;
+            display: block;
+            margin: 0 auto;
         }
 
-        /* Контейнер-блокнот */
+        /* БЛОКНОТ */
         .notebook-container {
             position: relative;
             width: 95%;
-            max-width: 1300px;
-            min-height: 900px;
+            max-width: 1200px;
             background-color: #fdfbf7;
-            /* Текстура линовки в клетку */
             background-image: 
                 linear-gradient(90deg, transparent 49.5%, rgba(0,0,0,0.08) 50%, transparent 50.5%),
                 linear-gradient(#e5e7eb 1px, transparent 1px),
                 linear-gradient(90deg, #e5e7eb 1px, transparent 1px);
             background-size: 100% 100%, 20px 20px, 20px 20px;
             border-radius: 10px;
-            box-shadow: 
-                0 20px 50px rgba(0,0,0,0.7),
-                inset 0 0 50px rgba(0,0,0,0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), inset 0 0 50px rgba(0,0,0,0.05);
             padding: 40px;
             box-sizing: border-box;
-            margin-bottom: 40px;
-            overflow: hidden;
+            margin: 40px 0;
         }
 
-        /* Заголовок на блокноте */
         .title-note {
             text-align: center;
             font-family: 'Caveat', cursive;
             font-size: 55px;
             color: #1a237e; 
             margin-top: 0;
-            margin-bottom: 40px;
-            transform: rotate(-1deg);
+            margin-bottom: 30px;
         }
 
-        /* Обертка для фото */
+        /* СЕТКА, ИСКЛЮЧАЮЩАЯ НАСЛАИВАНИЕ */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* Колонки */
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Обертка для фото (Полароид) */
         .photo-wrapper {
-            position: absolute;
             background: #fff;
             padding: 10px 10px 35px 10px; 
             box-shadow: 4px 6px 15px rgba(0,0,0,0.3);
+            position: relative;
             transition: transform 0.3s ease;
-            z-index: 2;
+            width: 100%;
+            max-width: 280px; /* Фото уменьшены */
+            margin-bottom: 20px;
         }
 
-        /* Имитация скотча */
+        /* Скотч на фото */
         .photo-wrapper::before {
             content: '';
             position: absolute;
@@ -96,12 +100,6 @@
             background: rgba(255, 255, 255, 0.7);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border: 1px solid rgba(0,0,0,0.05);
-            backdrop-filter: blur(2px);
-        }
-
-        .photo-wrapper:hover {
-            transform: scale(1.05) rotate(0deg) !important;
-            z-index: 10;
         }
 
         .photo-wrapper img {
@@ -110,102 +108,79 @@
             height: auto;
         }
 
-        /* Позиционирование фото */
-        .photo-book {
-            top: 120px;
-            left: 80px;
-            width: 240px;
-            transform: rotate(-3deg);
+        .photo-book { transform: rotate(-3deg); }
+        .photo-ded { transform: rotate(3deg); }
+
+        /* Стрелки */
+        .arrow-container {
+            height: 60px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
-        .photo-ded {
-            top: 120px;
-            right: 80px;
-            width: 300px;
-            transform: rotate(2deg);
-        }
-
-        .photo-portrait {
-            top: 500px;
-            left: 200px;
-            width: 200px;
-            transform: rotate(-2deg);
-        }
-
-        /* Стили рукописного текста */
-        .handwritten-text {
-            font-family: 'Caveat', cursive;
-            font-size: 36px;
-            position: absolute;
-            z-index: 3;
-            line-height: 1.1;
-        }
-
-        /* Надписи - разнесены так, чтобы не перекрывать фото */
-        .text-book {
-            top: 400px;
-            left: 80px;
-            transform: rotate(2deg);
-            width: 300px;
-            color: #1b5e20; /* Зеленые чернила */
-        }
-
-        .text-ded {
-            top: 480px;
-            right: 80px;
-            transform: rotate(-2deg);
-            text-align: right;
-            width: 320px;
-            color: #b71c1c; /* Красные чернила */
-        }
-
-        /* Стрелки (SVG) */
-        .arrow {
-            position: absolute;
-            z-index: 1;
-            pointer-events: none;
+        .arrow-svg {
+            width: 100px;
+            height: 100%;
             overflow: visible;
         }
 
-        .arrow path {
+        .arrow-svg path {
             fill: none;
             stroke-width: 3;
             stroke-linecap: round;
             stroke-linejoin: round;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: drawArrow 2s ease-in-out forwards;
         }
 
-        @keyframes drawArrow {
-            to { stroke-dashoffset: 0; }
+        /* Тексты */
+        .handwritten-text {
+            font-family: 'Caveat', cursive;
+            font-size: 34px;
+            line-height: 1.1;
+            text-align: center;
+            padding: 10px;
         }
 
-        /* Стрелки под цвет текста */
+        .text-book { color: #1b5e20; }
+        .text-ded { color: #b71c1c; }
+
         .arrow-book path { stroke: #1b5e20; }
         .arrow-ded path { stroke: #b71c1c; }
 
-        /* Корректировка позиций стрелок */
-        /* Стрелка от текста с монографиями (снизу) к фото книги (сверху) */
-        .arrow-book { top: 260px; left: 120px; width: 100px; height: 140px; transform: rotate(-15deg); }
-        
-        /* Стрелка от текста с информантами (снизу) к фото с дедом (сверху) */
-        .arrow-ded { top: 320px; right: 180px; width: 120px; height: 160px; transform: rotate(15deg); }
+        /* Блок со стикерами и портретом */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr;
+            gap: 30px;
+            align-items: end; /* Прижимаем к низу */
+            border-top: 2px dashed #ccc;
+            padding-top: 40px;
+        }
 
-        /* Вставки - записки на вырванных листах */
+        .photo-portrait {
+            max-width: 180px;
+            margin-bottom: 0;
+            transform: rotate(-4deg);
+        }
+
+        /* Стикеры */
         .sticky-note {
-            position: absolute;
             background: #fff9c4; 
             padding: 25px;
             box-shadow: 5px 7px 15px rgba(0,0,0,0.25);
             font-family: 'Caveat', cursive;
-            font-size: 30px;
+            font-size: 26px;
             color: #333;
             line-height: 1.1;
-            z-index: 4;
+            position: relative;
             clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%);
+            transition: transform 0.3s ease;
         }
         
+        .sticky-note:hover {
+            transform: scale(1.05) rotate(0deg);
+        }
+
         .sticky-note::before {
             content: '';
             position: absolute;
@@ -219,19 +194,8 @@
             box-shadow: 2px 2px 5px rgba(0,0,0,0.4), inset -2px -2px 4px rgba(0,0,0,0.3);
         }
 
-        .note-1 {
-            bottom: 80px;
-            right: 80px;
-            width: 320px;
-            transform: rotate(3deg);
-        }
-
-        .note-2 {
-            bottom: 80px;
-            left: 500px;
-            width: 350px;
-            transform: rotate(-2deg);
-        }
+        .note-1 { transform: rotate(2deg); }
+        .note-2 { transform: rotate(-2deg); }
 
         /* Кнопка */
         .btn-container {
@@ -250,11 +214,9 @@
             cursor: pointer;
             box-shadow: 6px 6px 0px #111;
             transition: all 0.1s;
-            letter-spacing: 1px;
         }
 
         .main-btn:hover { background-color: #d32f2f; }
-        
         .main-btn:active {
             transform: translate(6px, 6px);
             box-shadow: 0px 0px 0px #111;
@@ -272,6 +234,9 @@
             flex-direction: column;
             opacity: 0;
             transition: opacity 0.5s ease;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
         }
 
         .congrats-container.active {
@@ -281,31 +246,29 @@
 
         .congrats-title {
             font-family: 'Caveat', cursive;
-            font-size: 140px;
+            font-size: 100px;
             color: #ffd700;
             margin: 0 0 20px 0;
             text-shadow: 4px 4px 15px rgba(0,0,0,0.9);
-            transform: scale(0) rotate(-10deg);
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .congrats-container.active .congrats-title {
-            transform: scale(1) rotate(0deg);
-        }
-
+        /* УМЕНЬШЕННОЕ ФОТО НА ФИНАЛЬНОМ ЭКРАНЕ */
         .final-photo {
-            width: 600px;
-            max-width: 90%;
-            border: 10px solid #fff;
+            width: 400px; /* Уменьшено */
+            max-width: 80%;
+            border: 8px solid #fff;
             box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-            transform: translateY(50px) rotate(2deg);
-            opacity: 0;
-            transition: all 0.8s ease 0.3s;
+            transform: rotate(2deg);
+            margin-bottom: 30px;
         }
 
-        .congrats-container.active .final-photo {
-            transform: translateY(0) rotate(-1deg);
-            opacity: 1;
+        .congrats-text {
+            font-family: 'Caveat', cursive;
+            font-size: 42px;
+            color: #fff;
+            max-width: 800px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         /* Конфетти */
@@ -316,82 +279,74 @@
             z-index: 999;
             pointer-events: none;
             top: -20px;
-            border-radius: 2px;
         }
 
-        /* Адаптивность */
-        @media (max-width: 1000px) {
-            .notebook-container { height: auto; min-height: 1200px; }
-            .photo-book { left: 20px; top: 100px; width: 180px; }
-            .photo-ded { right: 20px; top: 100px; width: 220px; }
-            .photo-portrait { left: 30px; top: 450px; width: 150px; }
-            
-            .text-book { top: 320px; left: 20px; width: 250px; font-size: 28px; }
-            .text-ded { top: 380px; right: 20px; width: 250px; font-size: 28px; text-align: right; }
-            
-            .arrow-book { display: none; }
-            .arrow-ded { display: none; }
-            
-            .note-1 { bottom: 50px; right: 20px; width: 280px; }
-            .note-2 { bottom: 50px; left: 20px; width: 280px; }
+        /* Адаптивность для телефонов */
+        @media (max-width: 768px) {
+            .layout-grid { grid-template-columns: 1fr; gap: 20px; }
+            .bottom-section { grid-template-columns: 1fr; justify-items: center; }
+            .congrats-title { font-size: 70px; }
+            .congrats-text { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <!-- Логотип. Если у вас jpg, поменяйте на logo.jpg -->
+        <!-- Логотип на белой подложке (если файл logo.jpg, замените на .jpg) -->
         <img src="logo.png" alt="Логотип ИСл РАН">
     </div>
 
     <div class="notebook-container">
         <h1 class="title-note">Уважаемый директор!</h1>
 
-        <!-- 1. Фото с дедом (верхний правый угол) -->
-        <div class="photo-wrapper photo-ded">
-            <img src="ded.jpg" alt="Дедушка">
+        <div class="layout-grid">
+            <!-- ЛЕВАЯ КОЛОНКА (Книга) -->
+            <div class="column">
+                <div class="photo-wrapper photo-book">
+                    <img src="book.jpg" alt="Книга">
+                </div>
+                <div class="arrow-container">
+                    <svg class="arrow-svg arrow-book" viewBox="0 0 100 60">
+                        <!-- Стрелка вверх -->
+                        <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
+                    </svg>
+                </div>
+                <div class="handwritten-text text-book">
+                    Желаем много-много монографий<br>(и времени на их создание)
+                </div>
+            </div>
+
+            <!-- ПРАВАЯ КОЛОНКА (Дед) -->
+            <div class="column">
+                <div class="photo-wrapper photo-ded">
+                    <img src="ded.jpg" alt="Дедушка">
+                </div>
+                <div class="arrow-container">
+                    <svg class="arrow-svg arrow-ded" viewBox="0 0 100 60">
+                        <!-- Стрелка вверх -->
+                        <path d="M 50 55 Q 50 30 50 10 M 30 25 L 50 10 L 70 25" />
+                    </svg>
+                </div>
+                <div class="handwritten-text text-ded">
+                    Желаю больше замечательных информантов
+                </div>
+            </div>
         </div>
 
-        <!-- Текст про информантов (ниже фото с дедом) -->
-        <div class="handwritten-text text-ded">
-            Желаю больше замечательных информантов
-        </div>
+        <!-- НИЖНЯЯ СЕКЦИЯ (Портрет и Записки) -->
+        <div class="bottom-section">
+            <div class="photo-wrapper photo-portrait">
+                <img src="portrait.jpg" alt="Портрет">
+            </div>
 
-        <!-- Стрелка от текста (снизу) к фото с дедом (сверху) -->
-        <svg class="arrow arrow-ded" viewBox="0 0 150 200">
-            <path d="M 20 180 Q 80 100 130 40 M 110 30 L 130 40 L 120 60" />
-        </svg>
+            <div class="sticky-note note-1">
+                Пусть вы всегда проходите "фейс-контроль" информантов как в Белорусской Ветке под Гомелью (яичницей и самогоном)!
+            </div>
 
-
-        <!-- 2. Фото с книгой (верхний левый угол) -->
-        <div class="photo-wrapper photo-book">
-            <img src="book.jpg" alt="Книга">
-        </div>
-
-        <!-- Текст про монографии (ниже фото с книгой) -->
-        <div class="handwritten-text text-book">
-            Желаем много-много монографий<br>(и времени на их создание)
-        </div>
-
-        <!-- Стрелка от текста (снизу) к фото книги (сверху) -->
-        <svg class="arrow arrow-book" viewBox="0 0 150 200">
-            <path d="M 130 180 Q 80 100 20 40 M 40 30 L 20 40 L 30 60" />
-        </svg>
-
-
-        <!-- 3. Фото-портрет (слева внизу) -->
-        <div class="photo-wrapper photo-portrait">
-            <img src="portrait.jpg" alt="Портрет">
-        </div>
-
-        <!-- Записка 1: Ветка (справа внизу) -->
-        <div class="sticky-note note-1">
-            Пусть вы всегда проходите "фейс-контроль" информантов как в Белорусской Ветке под Гомелью (яичницей и самогоном)!
-        </div>
-
-        <!-- Записка 2: Мушка ружья (по центру внизу) -->
-        <div class="sticky-note note-2">
-            Пусть в экспедициях вам не угрожают, что вы будете на "мушке ружья" и не придется драться с ухажерами Виктории!
+            <div class="sticky-note note-2">
+                Пусть в экспедициях вам не угрожают, что вы будете на "мушке ружья" и не придется драться с ухажерами Виктории!
+            </div>
         </div>
 
     </div>
@@ -404,13 +359,15 @@
     <div class="congrats-container" id="congratsScreen">
         <h1 class="congrats-title">Поздравляем!</h1>
         <img src="cake.png" alt="Торт" class="final-photo">
+        <div class="congrats-text">
+            Пусть работа в институте вас радует,<br>а мы для вас будем лучшими коллегами.<br>Почаще улыбайтесь!
+        </div>
     </div>
 
     <script>
         const btn = document.getElementById('showCongratsBtn');
         const congratsScreen = document.getElementById('congratsScreen');
 
-        // Хлопушки с двух сторон
         function fireConfetti() {
             const colors = ['#ffd700', '#b71c1c', '#ffffff', '#1a237e', '#1b5e20'];
             
@@ -418,11 +375,9 @@
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.classList.add('confetti-piece');
-                    
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     
                     const isLeft = Math.random() > 0.5;
-                    
                     confetti.style.left = isLeft ? '0' : '100vw';
                     confetti.style.top = Math.random() * 40 + 50 + 'vh';
                     
